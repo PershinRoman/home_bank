@@ -37,6 +37,9 @@ def get_mask_card_number(card_number: str) -> str:
 
 
 def mask_account_card(name_card: str) -> str:
+    '''
+    Функция Принимает один аргумент — строку, содержащую тип и номер карты или счета.
+    '''
     parts = name_card.split()
     type_card = " ".join(parts[:-1])  # Составлет тип карты
     number_card = parts[-1]  # Последняя часть - номер
