@@ -30,7 +30,9 @@ def get_mask_card_number(card_number: str) -> str:
         raise ValueError("Номер карты не соответсвует количеству 16 цифр.")
 
     # Формируем замаскированный код используя срезы
-    masked_number = card_number[:4] + " " + card_number[4:6] + "** ****" + card_number[-4:]
+    masked_number = (
+            card_number[:4] + " " + card_number[4:6] + "** ****" + card_number[-4:]
+    )
 
     # (flake8 выдавал ошибку, разбил на разные строки)
     return masked_number
