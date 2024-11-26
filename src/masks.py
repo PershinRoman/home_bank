@@ -27,3 +27,5 @@ def get_mask_account(account_number: str) -> str:
     """Маскируем номер"""
     masked_account = "**" + account_number[-4:]
     return masked_account
+
+#print(get_mask_account('12345123451234512345'))  ' **2345  '
