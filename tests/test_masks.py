@@ -2,25 +2,34 @@ import pytest
 
 from src.masks import get_mask_card_number, get_mask_account
 
-@pytest.mark.parametrize(
-    'number_user, masked',
-    [
-        ('12345123451234512345', '**2345'),
-        ('45678456784567845678', '**5678'),
-        ('12389123891238912389', '**2389'),
-    ],
-)
-def test_get_mask_number(number_user, masked):
-    assert get_mask_account(number_user) == masked
+
+def test_get_mask_card_number():
+    ''' Маскирование карты
+    Работа с целыми числами
+    Ошибка при не верном вводе'''
+
+    assert get_mask_card_number('1234567812345678') == '1234 56** ****5678'
+    assert get_mask_card_number(9876543210123456) == '9876 54** ****3456'
+
+    with pytest.raises(ValueError):
+        get_mask_card_number('12345')
+    with pytest.raises(ValueError):
+        get_mask_card_number('123456789001234567889')
 
 
-@pytest.mark.parametrize(
-    'number_card, masked',
-    [
-        ('1234512345123451', '1234 51** ****3451'),
-        ('4567845678456784', '4567 84** ****6784'),
-        ('1238912389123891', '1238 91** ****3891'),
-    ],
-)
-def test_get_mask_numbers(number_card, masked):
-    assert get_mask_card_number(number_card) == masked
+def test_get_mask_account():
+    '''Проверка на маскировку
+    Работа с целыми числами
+    Ошибка на короткий ввод'''
+    assert get_mask_account('12345678') == '**5678'
+    assert get_mask_account('9821472146') == '**2146'
+    assert get_mask_account('1234') == '**1234'
+
+    with pytest.raises(ValueError):
+        get_mask_account('123')
+    with pytest.raises(ValueError):
+        get_mask_account('12')
+
+
+if __name__ == '__main__':
+    pytest.main()

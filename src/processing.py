@@ -1,13 +1,9 @@
-def filter_by_state(transactions, state ='EXECUTED') -> dict[str, int]:
+def filter_by_state(transactions, state='EXECUTED') -> dict[str, int]:
     '''Функция принимает два аргумента,
      список transaction и строку state,
       которая равно по условию EXECUTED'''
 
-    return [
-        transaction for transaction
-        in transactions
-        if transaction.get("state") == state
-    ]
+    return [transaction for transaction in transactions if transaction.get("state") == state]
 
 # Создание нового списка с помощью генератора списка.
 # Он перебирает каждый элемент и добавляет новый список,
@@ -15,6 +11,7 @@ def filter_by_state(transactions, state ='EXECUTED') -> dict[str, int]:
 
 # Метод get для безопасного получения значения по ключу,
 # на случай если ключ отсутсвует
+
 
 ''' Выход функции со статусом по умолчанию 'EXECUTED' '''
 
@@ -27,7 +24,7 @@ transactions = [
 
 executed_transactions = filter_by_state(transactions)
 print('EXECUTED', executed_transactions)
-#Выход функции, если вторым аргументом передано 'CANCELED'
+# Выход функции, если вторым аргументом передано 'CANCELED'
 canceled_transaction = filter_by_state(transactions, 'CANCELED')
 print('CACELED', canceled_transaction)
 
@@ -36,7 +33,8 @@ def sort_by_date(transactions, descending=True) -> dict[str, int]:
     '''Функция принимает два аргумента:
     список словарей и булевый параметр, который указывает,
     нужно ли сортировать в порядке убывания'''
-    return sorted(transactions, key=lambda x: x['date'], reverse=descending)#сортируем список по дате
+    # сортируем список по дате
+    return sorted(transactions, key=lambda x: x['date'], reverse=descending)
 
 
 transactions = [
