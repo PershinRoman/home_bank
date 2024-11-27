@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def get_date(date: str) -> str:
+def get_date_(date: str) -> str:
     '''
     Преобразуем строкус датой из формата '2024-03-11'
     в формат 'ДД.ММ.ГГГГ'
@@ -11,4 +11,4 @@ def get_date(date: str) -> str:
     return date_list.strftime('%d.%m.%Y')  # Форматирование даты
 
 
-print(get_date('2024-03-11'))
+print(get_date_('2024-03-11'))
