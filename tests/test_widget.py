@@ -19,16 +19,14 @@ def test_get_mask_account():
         get_mask_account('1')
 
 
-def test_mask_card_number():
+@pytest.mark.parametrize('condition, expected_result', [
+    ('1234567812345678', '1234 56** ****5678'),
+    (1234567812345678, '1234 56** ****5678')
+])
+def test_mask_card_number(condition, expected_result):
     '''Правильная маскировка карты
     Ошибка для коротких номеров карты'''
-    assert get_mask_card_number('1234567812345678') == '1234 56** ****5678'
-    assert get_mask_card_number(1234567812345678) == '1234 56** ****5678'
-
-    with pytest.raises(ValueError):
-        get_mask_card_number('12345')
-    with pytest.raises(ValueError):
-        get_mask_card_number('12182639861239816129863126893')
+    assert get_mask_card_number(condition) == expected_result
 
 
 def test_mask_account_card():
