@@ -1,4 +1,4 @@
-def filter_by_state(transactions, state='EXECUTED') -> dict[str, int]:
+def filter_by_state(transactions, state: str = 'EXECUTED') -> dict[str, int]:
     '''Функция принимает два аргумента,
      список transaction и строку state,
       которая равно по условию EXECUTED'''
