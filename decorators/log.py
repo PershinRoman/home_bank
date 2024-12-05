@@ -2,7 +2,15 @@ import logging
 import sys
 from functools import wraps
 
+
 def log(filename=None):
+    '''
+    log, который будет автоматически логировать начало и конец выполнения функции,
+    а также её результаты или возникшие ошибки,
+    можно воспользоваться модулем logging.
+    Декоратор, который будет принимать необязательный аргумент filename
+    для определения места логирования.
+    '''
     # Настройка логирования
     if filename:
         logging.basicConfig(filename=filename, level=logging.INFO,
@@ -25,14 +33,17 @@ def log(filename=None):
         return wrapper
     return decorator
 
+
 # Пример использования декоратора
 @log(filename="mylog.txt")
 def my_function(x, y):
     return x + y
 
+
 @log()
 def my_error_function(x, y):
     return x / y  # Это может привести к ошибке деления на ноль
+
 
 # Вызов функций
 my_function(1, 2)          # Логи будут записаны в mylog.txt

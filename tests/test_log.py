@@ -7,7 +7,11 @@ from functools import wraps
 logging.basicConfig(stream=sys.stdout, level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 def log(filename=None):
+    '''
+    Мы будем проверять как успешное выполнение функции, так и обработку исключений
+    '''
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -22,13 +26,16 @@ def log(filename=None):
         return wrapper
     return decorator
 
+
 @log()
 def successful_function(x, y):
     return x + y
 
+
 @log()
 def error_function(x, y):
     return x / y  # Это может привести к ошибке деления на ноль
+
 
 def test_successful_function(caplog):
     with caplog.at_level(logging.INFO):
@@ -39,6 +46,7 @@ def test_successful_function(caplog):
     # Проверка ожидаемых строк в выводе
     assert "Starting successful_function with args: (3, 4), kwargs: {}" in caplog.text
     assert "successful_function ok: 7" in caplog.text
+
 
 def test_error_function(caplog):
     with caplog.at_level(logging.INFO):
