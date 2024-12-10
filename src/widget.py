@@ -31,16 +31,21 @@ def get_mask_card_number(card_number: str) -> str:
 
     # Формируем замаскированный код используя срезы
     masked_number = (
-            card_number[:4] + " " + card_number[4:6] + "** ****" + card_number[-4:]
+            card_number[:4] + " " +
+            card_number[4:6] + "** ****" +
+            card_number[-4:]
     )
 
     # (flake8 выдавал ошибку, разбил на разные строки)
     return masked_number
 
 
-def mask_account_card(name_card: str) -> str:
+def mask_account_card(
+        name_card: str
+) -> str:
     '''
-    Функция Принимает один аргумент — строку, содержащую тип и номер карты или счета.
+    Функция Принимает один аргумент — строку,
+    содержащую тип и номер карты или счета.
     '''
     parts = name_card.split()
     type_card = " ".join(parts[:-1])  # Составлет тип карты
@@ -48,11 +53,19 @@ def mask_account_card(name_card: str) -> str:
 
     if name_card.lower() in ["счет"]:  # Тип, есть - счет
         return f"{type_card} {mask_account_card(number_card)}"
-    else:  # Для карта
+    else:
         return f"{type_card} {get_mask_account(number_card)}"
 
 
-print(mask_account_card("Visa Platinum 7000792289606361"))  # Visa Platinum 7000 79** **** 6361
-print(mask_account_card("Счет 73654108430135874305"))  # Счет 4305
-print(mask_account_card("Maestro 1596837868705199"))  # Maestro 1596 83 **** 5199
-print(mask_account_card("Счет 64686473678894779589"))  # Счет **9589
+print(mask_account_card(
+    "Visa Platinum 7000792289606361")
+)
+print(mask_account_card(
+    "Счет 73654108430135874305")
+)
+print(mask_account_card(
+    "Maestro 1596837868705199")
+)
+print(mask_account_card(
+    "Счет 64686473678894779589")
+)

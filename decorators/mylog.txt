@@ -1,0 +1,16 @@
+2024-12-05 19:49:25,079 - INFO -Starting my_function with args: (1, 2), kwargs: {}
+2024-12-05 19:49:41,904 - INFO -Starting my_function with args: (1, 2), kwargs: {}
+2024-12-05 19:49:41,904 - INFO -my_function ok: 3
+2024-12-05 19:49:41,905 - INFO -Starting my_error_function with args: (1, 0), kwargs: {}
+2024-12-05 19:51:18,259 - INFO - Starting my_function with args: (1, 2), kwargs: {}
+2024-12-05 19:51:18,260 - INFO - my_function ok: 3
+2024-12-05 19:51:18,260 - INFO - Starting my_error_function with args: (1, 0), kwargs: {}
+2024-12-05 19:51:18,260 - ERROR - my_error_function error: ZeroDivisionError. Inputs: (1, 0), {}
+2024-12-05 19:52:17,057 - INFO - Starting my_function with args: (1, 2), kwargs: {}
+2024-12-05 19:52:17,058 - INFO - my_function ok: 3
+2024-12-05 19:52:17,058 - INFO - Starting my_error_function with args: (1, 0), kwargs: {}
+2024-12-05 19:52:17,058 - ERROR - my_error_function error: ZeroDivisionError. Inputs: (1, 0), {}
+2024-12-05 20:03:06,995 - INFO - Starting my_function with args: (1, 2), kwargs: {}
+2024-12-05 20:03:06,995 - INFO - my_function ok: 3
+2024-12-05 20:03:06,995 - INFO - Starting my_error_function with args: (1, 0), kwargs: {}
+2024-12-05 20:03:06,995 - ERROR - my_error_function error: ZeroDivisionError. Inputs: (1, 0), {}
