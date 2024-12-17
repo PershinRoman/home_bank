@@ -1,42 +1,38 @@
 import os
 import requests
-from typing import Dict, Any
-from dotenv import load_dotenv
-
-load_dotenv('.env')  # Загружаем переменные окружения из .env
-
-API_URL = "https://api.apilayer.com/exchangerates_data/latest"
+from typing import Dict
 
 
-def get_exchange_rate(base_currency: str, target_currency: str) -> float:
+def convert_to_rubles(transaction: Dict[str, any]) -> float:
     """
-    Получает текущий курс обмена валют через API.
+    Конвертирует сумму транзакции в рубли, если она указана в USD или EUR.
+    Если транзакция уже в рублях, возвращает сумму без изменений.
+
+    :param transaction: Словарь с данными о транзакции.
+    :return: Сумма транзакции в рублях.
     """
-    api_key = os.getenv("API_KEY")
+    amount = transaction.get('amount', 0)
+    currency = transaction.get('currency', 'RUB')
+
+    if currency == 'RUB':
+        return float(amount)
+
+    # Получаем API-ключ из переменных окружения
+    api_key = os.getenv('EXCHANGE_API_KEY')
     if not api_key:
-        raise ValueError("API_KEY не задан в .env")
+        raise ValueError("Не найден API-ключ для конвертации валюты. Проверьте файл .env.")
 
+    # Обращаемся к API для получения курса валют
+    url = f"https://api.apilayer.com/exchangerates_data/convert"
+    params = {
+        "from": currency,
+        "to": "RUB",
+        "amount": amount
+    }
     headers = {"apikey": api_key}
-    params = {"base": base_currency, "symbols": target_currency}
-    response = requests.get(API_URL, headers=headers, params=params)
 
-    if response.status_code != 200:
-        raise RuntimeError(f"Ошибка API: {response.status_code}, {response.text}")
+    response = requests.get(url, params=params, headers=headers)
+    response.raise_for_status()
 
-    rates = response.json().get("rates", {})
-    return rates.get(target_currency, 1.0)
-
-
-def convert_to_rub(transaction: Dict[str, Any]) -> float:
-    """
-    Конвертирует сумму транзакции в рубли.
-    Если валюта не указана, возвращает сумму как есть.
-    """
-    amount = transaction.get("amount", 0.0)
-    currency = transaction.get("currency", "RUB")
-
-    if currency == "RUB":
-        return float(amount)  # Уже в рублях
-
-    exchange_rate = get_exchange_rate(currency, "RUB")
-    return float(amount) * exchange_rate
+    data = response.json()
+    return float(data.get("result", 0))

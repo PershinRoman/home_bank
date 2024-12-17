@@ -1,6 +1,6 @@
 import pytest
 
-from src.processing import sort_by_date, filter_by_state
+from src.processing import filter_by_state, sort_by_date
 
 if __name__ == '__main__':
     pytest.main()

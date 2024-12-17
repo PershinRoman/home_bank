@@ -1,7 +1,8 @@
-import pytest
 import logging
 import sys
 from functools import wraps
+
+import pytest
 
 # Настройка логирования на уровне модуля
 logging.basicConfig(stream=sys.stdout, level=logging.INFO,

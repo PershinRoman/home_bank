@@ -1,26 +1,29 @@
-import unittest
-from unittest.mock import patch, mock_open
-from utils.utils import load_transactions
+from unittest.mock import mock_open, patch
+
+from utils.utils import read_json_file
 
 
-class TestUtils(unittest.TestCase):
+def test_read_json_file_valid():
+    mock_json_data = '[{"id": 1, "amount": 100}, {"id": 2, "amount": 200}]'
+    with patch("builtins.open", mock_open(read_data=mock_json_data)):
+        result = read_json_file("dummy_path.json")
+    assert result == [{"id": 1, "amount": 100}, {"id": 2, "amount": 200}]
 
-    @patch("builtins.open", new_callable=mock_open, read_data='[{"amount": 100, "currency": "USD"}]')
-    def test_load_transactions_valid(self, mock_file):
-        result = load_transactions("dummy_path.json")
-        self.assertEqual(result, [{"amount": 100, "currency": "USD"}])
 
-    @patch("builtins.open", new_callable=mock_open, read_data='')
-    def test_load_transactions_empty_file(self, mock_file):
-        result = load_transactions("dummy_path.json")
-        self.assertEqual(result, [])
+def test_read_json_file_empty():
+    mock_json_data = ''
+    with patch("builtins.open", mock_open(read_data=mock_json_data)):
+        result = read_json_file("dummy_path.json")
+    assert result == []
 
-    @patch("builtins.open", side_effect=FileNotFoundError)
-    def test_load_transactions_file_not_found(self, mock_file):
-        result = load_transactions("dummy_path.json")
-        self.assertEqual(result, [])
 
-    @patch("builtins.open", new_callable=mock_open, read_data='{"key": "value"}')
-    def test_load_transactions_not_a_list(self, mock_file):
-        result = load_transactions("dummy_path.json")
-        self.assertEqual(result, [])
+def test_read_json_file_not_list():
+    mock_json_data = '{"id": 1, "amount": 100}'
+    with patch("builtins.open", mock_open(read_data=mock_json_data)):
+        result = read_json_file("dummy_path.json")
+    assert result == []
+
+    def test_read_json_file_not_found():
+        with patch("builtins.open", side_effect=FileNotFoundError):
+            result = read_json_file("nonexistent_file.json")
+        assert result == []
