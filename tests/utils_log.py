@@ -1,5 +1,4 @@
 from logs.utils import read_json_file
-import os
 from unittest.mock import mock_open, patch
 import logging
 
