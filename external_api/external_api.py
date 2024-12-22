@@ -26,7 +26,7 @@ def convert_to_rubles(transaction: Dict[str, Any]) -> float:
         raise ValueError("Не найден API-ключ для конвертации валюты. Проверьте файл .env.")
 
     # Обращаемся к API для получения курса валют
-    url = f"https://api.apilayer.com/exchangerates_data/convert"
+    url = "https://api.apilayer.com/exchangerates_data/convert"
     params = {
         "from": currency,
         "to": "RUB",

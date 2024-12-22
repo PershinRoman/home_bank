@@ -73,6 +73,6 @@ def test_card_number_generator():
         '0000000000000002'
     ]),
 ])
-def test_card_number_generator(start, end, expected):
+def test_card_number_generator_2(start, end, expected):
     generated_numbers = list(card_number_generator(start, end))
     assert generated_numbers == expected

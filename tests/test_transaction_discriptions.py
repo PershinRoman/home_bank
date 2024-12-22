@@ -76,5 +76,5 @@ def test_transaction_descriptions():
         ]
     )
 ])
-def test_transaction_descriptions(transactions, expected_descriptions):
+def test_transaction_descriptio_v2(transactions, expected_descriptions):
     assert list(transaction_descriptions(transactions)) == expected_descriptions
