@@ -50,3 +50,18 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.flake8]
 max-line-length = 120
+
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+exclude_also = [
+    "def __repr__",
+    "if self\\.debug",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "@(abc\\.)?abstractmethod",
+    ]
