@@ -2,6 +2,7 @@ import json
 from transaction_filter import filter_transactions_by_description, count_operations_by_category
 from transaction_statistics import load_transactions_from_json, load_transactions_from_csv, load_transactions_from_xlsx
 
+
 def main():
     print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
     print("Выберите необходимый пункт меню:")
@@ -58,6 +59,7 @@ def main():
             print(f"Сумма: {transaction['amount']} {transaction['currency']}")
     else:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации.")
+
 
 if __name__ == "__main__":
     main()
